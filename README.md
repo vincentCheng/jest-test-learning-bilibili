@@ -1,2 +1,132 @@
-# jest-test-learning-bilibili
-https://www.bilibili.com/video/BV1Ad4y1C7vY/?spm_id_from=333.788&amp;vd_source=59fab4ae7f7b6462cea577f55587fe78
+# [参考文献 1：](https://www.bilibili.com/video/BV1Ad4y1C7vY/?spm_id_from=333.788&vd_source=59fab4ae7f7b6462cea577f55587fe78)
+
+# 第 0.0 章-为什么要做单元测试？
+
+- 瀑布流开发。随着开发迭代周期增加，风险也会增加。
+- 敏捷开发所需。管控好，每个小的开发周期风险。
+
+# 前端 jest 单元测试实战
+
+# 前端组件化 UI 测试实战
+
+# 前端状态管理数据流测试
+
+# 前端单元测试该如何落地？
+
+# 第 0.1 章-单元测试与自动化的关系
+
+- 使用 Jenkins 做自动化测试。
+
+# 第 1.1 章 - Jest 单元测试基础入门
+
+- given
+  - Arrage
+  - 准备测试数据：有时候可以抽取到 beforeEach，或者 mock 模块。
+- when
+  - Act
+  - 采取行动：调用响应模块，执行对应的函数或者组件渲染方法
+- then
+  - Assert
+  - 断言：借助 matchers 的能力，jest 还可以扩展自己的 matcher
+
+# 断言语句 matcher
+
+- toBe
+  - 等于“===”
+- toEqual
+  - 对象之间是否值相等，而不是只有引用相等。
+- toBeFalsy
+  - 判断 boolean 值。
+- toHaveLength
+  - 判断数组的长度
+- toHaveBeenCalled
+  - 判断方法是否被调用
+- toHaveBeenCalledTimes
+  - 方法被调用了几次
+- toThrow
+  - 判断是否有某些异常
+- toMatchSnapshot
+  - 验证快照之间是否相等。
+- toMatchInlineSnapshot
+  - 略
+- expect.extend(matchers)
+  - 扩展属于自己的 matcher
+
+# 第 1.2 章 - Jest 单元测试之模块间依赖 Fake、Stub、Mock、Spy。主要讲解模块之间的依赖。
+
+## 写测试需要替换的对象：
+
+- 数据库
+- 网络请求
+- 存取文件
+- 任何外部系统
+  - 比如浏览器的查看当前地址信息的 API
+
+### 常用的方法
+
+- mock
+
+```js
+// 模拟整个音乐播放器
+import SoundPlayer from "./sound-player";
+const mockPlayerSoundFile = jest.fn();
+jest.mock("./sound-player", () => {
+  return jest.fn().mockImplementation(() => {
+    return { playSoundFile: mockPlayerSoundFile };
+  });
+});
+```
+
+- stub 模拟特定行为
+- spy 监听模块行为
+
+```js
+const video = require("./video");
+
+it("plays video", () => {
+  const spy = jest.spyOn(video, "play");
+  const isPlaying = video.play();
+
+  expect(spy).toHaveBeenCalled();
+  expect(isPlaying).toBe(true);
+});
+```
+
+## 代码模块的易测性
+
+- 模块之间要简单，如果要 mock 很多次，那么就需要思考了。需要符合【职责单一原则】
+
+- 这里展示了 mock 的两种写法
+
+```js
+import searchNames from "./searchNames";
+import { getNames } from "./services";
+
+// 这里其实是mock的两种用法。
+jest.mock("./services", () => ({
+  getNames: jest.fn(),
+  // getNames: jest.fn(() => {
+  //   return ["john", "aaa", "bbb", "ccc"];
+  // }),
+}));
+
+test("shold return empty result when not search", () => {
+  //----------given----------
+  const keyword = "frank";
+  getNames.mockImplementation(() => []);
+  //----------when----------
+  const result = searchNames(keyword);
+  //----------then----------
+  expect(result).toEqual([]);
+});
+
+test("shold return target result when found search", () => {
+  //----------given----------
+  const keyword = "john";
+  getNames.mockImplementation(() => ["john", "aaa", "bbb", "ccc"]);
+  //----------when----------
+  const result = searchNames(keyword);
+  //----------then----------
+  expect(result).toEqual(["john"]);
+});
+```
