@@ -65,6 +65,7 @@
 ### 常用的方法
 
 - mock
+  - 解除掉依赖，模拟函数返回的结果，例如：异步请求、状态更新。
 
 ```js
 // 模拟整个音乐播放器
@@ -130,3 +131,26 @@ test("shold return target result when found search", () => {
   expect(result).toEqual(["john"]);
 });
 ```
+
+# 生成测试报告
+
+```js
+/**
+ * 如果使用命令
+ * npx jest --converage
+ * 会生成一个报告。
+ * 报告中会显示 functionNotTested() 函数，没有被执行。
+ */
+test("test function not tested", () => {
+  //----------given----------
+  const keyword = "huanggang";
+  //----------when----------
+  const result = functionNotTested(keyword);
+  //----------then----------
+  expect(result).toBe(`hello ${keyword} !`);
+});
+```
+
+## 《测试奖杯》一种自下而上的 web 应用测试策略
+
+- 你的测试与你的软件使用方式越相似，他们就越能给你带来信心。 ---Testing Library 作者

@@ -1,7 +1,10 @@
 // import { getNames } from "./services";
 import * as services from "./services";
 
-const searchNames = (term) => {
+export const searchNames = (term) => {
+  if (typeof term === "undefined" || term === null) {
+    return term;
+  }
   const names = services.getNames();
   if (!Array.isArray(names)) {
     return [];
@@ -15,8 +18,6 @@ const searchNames = (term) => {
   return matches.length > 3 ? matches.slice(0, 3) : matches;
 };
 
-const functionNotTested = (term) => {
+export const functionNotTested = (term) => {
   return `hello ${term} !`;
 };
-
-export default searchNames;
