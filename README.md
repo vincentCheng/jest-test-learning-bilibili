@@ -154,3 +154,46 @@ test("test function not tested", () => {
 ## 《测试奖杯》一种自下而上的 web 应用测试策略
 
 - 你的测试与你的软件使用方式越相似，他们就越能给你带来信心。 ---Testing Library 作者
+
+# 第 2.1 章 - 前端组件化 UI 测试 - Testing Library
+
+- 每个组件都能够简化为表达式：
+
+  - UI=F(data)
+
+- 重点测试功能单一的子组件，别测试最顶层的父组件。
+  - 最顶层的父组件太多逻辑了，只要保证好子组件能够通过测试。
+
+## Testing Libraray vs Enzyme
+
+- Enzyme 是 react 社区用的比较多。
+- 推荐使用 Testing Library。能够测试各种各样的框架。
+  - 封装的很多方法，能够让我们一次学习多次使用。
+
+### 查询组件渲染元素
+
+|    type    | NoMatch | 1Match | 1+Match | Await? |
+| :--------: | :-----: | :----: | :-----: | :----: |
+|   getBy    |  throw  | return |  throw  |   No   |
+|  getAllby  |  throw  | array  |  array  |   No   |
+|   findBy   |  throw  | return |  throw  |  Yes   |
+| findAllBy  |  throw  | array  |  array  |  Yes   |
+|  queryBy   |  null   | return |  throw  |   No   |
+| queryAllBy |   []    | array  |  array  |   No   |
+
+### UI 交互行为的测试
+
+```js
+userEvent.click();
+userEvent.dblClick();
+userEvent.type();
+userEvent.keyboard();
+userEvent.upload();
+userEvent.clear();
+userEvent.selectOptions();
+userEvent.deselectOptions();
+userEvent.tab();
+userEvent.hover();
+userEvent.unhover();
+userEvent.paste();
+```
