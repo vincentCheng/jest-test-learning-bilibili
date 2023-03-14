@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV == "development";
 const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
   },
@@ -31,25 +31,7 @@ const config = {
     rules: [
       {
         test: /\.(j|t)sx?$/i,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: [
-                [
-                  "@babel/preset-env",
-                  {
-                    corejs: { version: 3 },
-                    useBuiltIns: "usage",
-                  },
-                ],
-                "@babel/preset-react",
-              ],
-              plugins: ["@babel/plugin-transform-runtime"],
-            },
-          },
-          //   "ts-loader",
-        ],
+        use: ["babel-loader", "ts-loader"],
         exclude: /node_modules/,
       },
       {

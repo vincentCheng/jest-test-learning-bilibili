@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 const root = document.getElementById("root");
 
-function App(params) {
+function App() {
   return <div>"hello world"</div>;
 }
 

@@ -1,11 +1,18 @@
 {
-  "plugins": ["@babel/syntax-dynamic-import"],
+  "plugins": [
+    "@babel/syntax-dynamic-import",
+    "@babel/plugin-transform-runtime"
+  ],
   "presets": [
     [
       "@babel/preset-env",
       {
+        "corejs": { "version": 3 },
+        "useBuiltIns": "usage",
+        "targets": { "node": "current" },
         "modules": false
-      }
+      },
+      "@babel/preset-react"
     ]
   ]
 }
