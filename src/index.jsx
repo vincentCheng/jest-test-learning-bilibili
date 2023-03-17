@@ -1,11 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import App from "./app";
 
 const root = document.getElementById("root");
-
-function App() {
-  return <div>"hello world"</div>;
-}
 
 ReactDOM.render(
   <React.StrictMode>

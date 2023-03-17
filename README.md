@@ -197,3 +197,16 @@ userEvent.hover();
 userEvent.unhover();
 userEvent.paste();
 ```
+
+## @testing-library/react@12 安装这个版本才能匹配 react@17
+
+### 这里无法使用 import 引入.jsx 文件
+
+- 对比之前写过的项目:
+
+```shell
+git@github.com:vincentCheng/my-jest-learning.git
+```
+
+发现之前的项目根本没有 @babel/prest-env 之类的转换器，反而使用的是 ts-jest 。
+网上的配置真的很莫名其妙，而且还没什么作用。
