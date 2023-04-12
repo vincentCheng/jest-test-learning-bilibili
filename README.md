@@ -210,3 +210,5 @@ git@github.com:vincentCheng/my-jest-learning.git
 
 发现之前的项目根本没有 @babel/prest-env 之类的转换器，反而使用的是 ts-jest 。
 网上的配置真的很莫名其妙，而且还没什么作用。
+
+### 测试 redux 的时候，要尽量保证别互相影响。每次测试都生成一个新的 store。
